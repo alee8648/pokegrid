@@ -1,2 +1,2 @@
-# Design-Patterns
-Annotated source code for implementations of Design Patterns 
+# Pokegrid
+A simple match-the-pairs game to experiment with using the Pokeapi to pull data about pokemon.

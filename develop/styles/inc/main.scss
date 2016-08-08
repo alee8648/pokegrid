@@ -1,0 +1,366 @@
+* {
+  box-sizing: border-box;
+}
+html,body {
+  height: 100%;
+}
+body {
+  background-color: #FFFFFF;
+  background-image: url('http://1.bp.blogspot.com/-QKc_VzsoMMs/TVNxyev5rAI/AAAAAAAAFFk/-vLbfRC1FvQ/s1600/cartoon+forest.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  font-family: "Open Sans", sans-serif;
+  width: 100%; }
+
+header {
+  width: 100%; }
+
+h1 {
+  text-align: center; }
+
+h2 {
+  font-size: 1.4em; }
+
+
+
+img {
+  display: block;
+  margin: 0 auto; }
+
+.game-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  perspective: 90px;
+  perspective-origin: 50% 0%;
+
+
+}
+
+.pokemon {
+  background-color: #E3E3E3;
+  border: 4px solid #000000; }
+
+.name,
+.species {
+  text-align: center; }
+
+.sprite {
+  height: 100px; }
+
+.abilities {
+  margin: 30px 25px;
+  height: 160px; }
+
+.abilities h3 {
+  padding-left: 60px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #999999; }
+
+.abilities ul {
+  list-style-type: none;
+  margin-left: 15px; }
+
+.abilities li {
+  padding: 5px; }
+
+button {
+  background-color: #EA0041;
+  color: #FFFFFF;
+  width: 200px;
+  height: 50px;
+  border: 1px solid black;
+  box-shadow: none;
+  margin: 50px auto;
+  display: block; 
+
+}
+
+
+
+// Grid
+
+/* .grid {
+  width: 700px;
+  height: 700px;
+  margin: 0 auto;
+  display: block;
+
+  .pokemon {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 32%;
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 0
+  }
+
+} */
+
+
+$grid-size: 600px;
+$margin-size: 20px;
+$horizontal-padding: 25px;
+$vertical-padding: 155px;
+$row-width: 4; // in number of tiles
+$column-height: 4; // in number of tiles
+
+#pokegrid {
+  width: $grid-size;
+  height: $grid-size + $vertical-padding;
+  background-color: #EF2B34;
+  border: solid 1px black;
+  border-radius: 10px;
+  position: relative;
+  padding: $vertical-padding $horizontal-padding;
+  margin: 0 auto;
+  box-shadow: 2px 2px 15px #111;
+
+  transform: rotateX(1deg);
+ ;
+
+  * {
+    border-radius: inherit;
+  }
+
+  .light {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    top: 50px;
+    border: solid 1px black;
+
+    &:before {
+      position: absolute;
+      top: 18%;
+      left: 18%;
+      width: 20%;
+      height: 20%;
+      border-radius: 50%;
+      content: '';
+      background-color: #fff;
+      z-index: 20;
+    }
+  }
+
+  #blue-light {
+    left: 50px;
+    height: 75px;
+    width: 75px;
+    background-color: #fff;
+
+    &:after {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      content: '';
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background-color: #34E0FB;
+      border: inset 1px black;
+    }
+  }
+
+  #red-light {
+    left: 160px;
+    background-color: #B10016;
+  }
+
+  #yellow-light {
+    left: 195px;
+    background-color: #F8C009;
+  }
+
+  #green-light {
+    left: 230px;
+    background-color: #3DC016;
+  }
+
+  #click-counter {
+    position: absolute;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    font-family: "Courier New", courier, monospace;
+    text-align: center;
+    line-height: 75px;
+    font-size: 60px;
+    background-color: #efefef;
+    border: solid 1px black;
+    right: 50px;
+    top: 50px;
+
+    &:before {
+      position: absolute;
+      top: 20%;
+      left: 20%;
+      width: 20%;
+      height: 20%;
+      border-radius: 50%;
+      content: '';
+      background-color: rgba(255,255,255,0.7);
+      z-index: 20;
+    }
+
+  }
+
+
+  .grid {
+    background-color: #000D2A;
+    box-shadow: inset 0 0 10px #000;
+    border: solid 1px black;
+    position: relative;
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      content: '';
+      z-index: 20;
+      background-color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s linear;
+    }
+
+    &.warning {
+      &:after {
+        opacity: 0.5;
+        transition: opacity 0.2s linear;
+        pointer-events: auto;
+      }
+    }
+  }
+
+ 
+
+  .row {
+    overflow: auto;
+
+    &:first-of-type {
+      padding-top: $margin-size;
+    }
+  }
+
+  .tile {
+    // - 2 for the border
+    width: ($grid-size - 4 - $horizontal-padding - $horizontal-padding - ($margin-size * ($row-width + 1) )) / $row-width;
+    height: ($grid-size - 4 - $horizontal-padding - $horizontal-padding - ($margin-size * ($row-width + 1))) / $column-height;
+    display: inline-block;
+    margin-left: $margin-size;
+    box-sizing: border-box;
+    float: left;
+    margin-bottom: $margin-size;
+    position: relative;
+    background-color: #fff;
+
+    &:last-of-type {
+      margin-right: $margin-size;
+    }
+
+    &:after {
+      position: absolute;
+      width: 92%;
+      height: 92%;
+      top: 2%;
+      left: 2%;
+      border: solid 2px white;
+      content: '';
+      z-index: 0;
+      border-radius: inherit;
+      transform: scale(1);
+      transition: all 0.3s linear;
+     // transition: opacity 0.3s linear;
+      opacity: 1;
+      pointer-events: none;
+      box-shadow: 0 0 5px white;
+    }
+
+    &.clicked:after {
+      z-index: 15;
+      opacity: 0;
+      transform: scale(1.08);
+      transition: all 0.3s linear;
+
+     // transition: opacity 0.2s linear;
+
+    }
+  }
+  
+  .hidden {
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    background-image: url('http://vignette1.wikia.nocookie.net/pokemon/images/b/b8/001Bulbasaur_Dream.png/revision/latest?cb=20140903033758');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    box-shadow: inset 0 0 10px #000000;
+    
+  }
+
+  .cover {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: inset 1px black;
+
+
+    &:after {
+      position: absolute;
+      top: 50%;
+      margin-top: - 20px;
+      height: 40px;
+      width: 40px;
+      left: 50%;
+      margin-left: -20px;
+      content: '?';
+      font-size: 30px;
+      line-height: 40px;
+      text-align: center;
+    }
+
+  }
+
+}
+
+#warning  {
+  $warning-width: 350px;
+  $warning-height: 75px;
+  position: fixed;
+  display: none;
+  background-color: #fff;
+  border: solid 1px black;
+  border-radius: 5px;
+  z-index: 21;
+  width: $warning-width;
+  min-height: $warning-height;
+  line-height: 50px;
+  text-align: center;
+  box-shadow: 0 0 10px black;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-family: 'Courier New', courier, monospace;
+
+  left: 50%;
+  margin-left: -($warning-width / 2);
+  top: 50%;
+
+
+
+}

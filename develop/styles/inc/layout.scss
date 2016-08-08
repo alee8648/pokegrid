@@ -1,0 +1,12 @@
+body
+{
+
+
+	@include mq(tablet) { 
+
+	}
+
+	@include mq(mobile) { 
+
+	}
+}
